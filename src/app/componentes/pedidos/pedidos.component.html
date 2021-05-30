@@ -1,0 +1,113 @@
+<!-- Button trigger modal -->
+<button type="button" id=btnModal class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#detalheModal">
+    Launch demo modal
+  </button>
+  
+  <!-- Modal -->
+  <div class="modal fade" id="detalheModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="detalheModal">Detalhes do Pedido {{detalhe.idPedido}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <h5>{{detalhe.cliente.nome}}</h5>
+          <p><strong>Endereço</strong> - {{detalhe.cliente.logradouro}} - {{detalhe.cliente.numero}}<br>
+            {{detalhe.cliente.bairro}} - {{detalhe.cliente.cidade}} - {{detalhe.cliente.cep}}
+        </p>
+        <p><strong>Obsevações:  </strong>{{detalhe.observacoes}}</p>
+        <p><strong> Total do Pedido:</strong> {{detalhe.valorTotal | currency:'BRL'}}</p>
+          <h6 align="center"><strong>Itens do Pedido</strong></h6>
+          <table class="table">
+              <thead>
+                  <th class="col">FOTO</th>
+                  <th class="col">Produto</th>
+                  <th class="col">Valor_Unit</th>
+                  <th class="col">Quantidade</th>
+                  <th class="col">Valor Total</th>
+              </thead>
+              <tbody>
+                  <tr *ngFor="let item of detalhe.itensPedido">
+                      <td><img src="{{item.produto.link}}" height="50"></td>
+                      <td>{{item.produto.nome}}</td>
+                      <td>{{item.preco | currency:'BRL'}}</td>
+                      <td>{{item.qtd_item}}</td>
+                      <td>{{item.preco_total | currency:'BRL'}}</td>
+                  </tr>
+              </tbody>
+        </table>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+
+<div class="container">
+    <div class="row">
+        <div class="col 12 text-center">
+            <h3>Gerenciamento de Pedido</h3>
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <!--<th scope="col">ID</th>-->
+                        <th scope="col">#</th>
+                        <th scope="col">Detalhes</th>
+                        <th scope="col">Data</th>
+                        <th scope="col">Cliente</th>
+                        <th scope="col">Total - R$</th>
+                        <th scope="col">Observações</th>
+                        <th scope="col">Status</th>
+
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <tr *ngFor="let ITEM of lista">
+                        <td>{{ITEM.idPedido}}</td>
+                        <td><i class="bi bi-info-circle-fill" (click)="enviarDetalhes(ITEM)"></i></td>
+                        <td>{{ITEM.dataPedido | date:'dd/MM/yyyy'}}</td>
+                        <td>{{ITEM.cliente.nome}}</td>
+                        <td align="right">{{ITEM.valorTotal | currency: 'BRL'}}</td>
+                        <td>{{ITEM.observacoes}}</td>
+                        <td>
+                            <div class="btn-group" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check" name="btn-{{ITEM.idPedido}}"
+                                    id="btnradio1-{{ITEM.idPedido}}" autocomplete="off" checked *ngIf="ITEM.status==1">
+                                <input type="radio" class="btn-check" name="btn-{{ITEM.idPedido}}"
+                                    id="btnradio1-{{ITEM.idPedido}}" autocomplete="off" *ngIf="ITEM.status!=1"
+                                    (click)="alterarStatus(ITEM.idPedido,1)">
+                                <label class="btn btn-outline-primary" for="btnradio1-{{ITEM.idPedido}}"><i
+                                        class="bi bi-cash"></i></label>
+
+
+                                <input type="radio" class="btn-check" name="btn-{{ITEM.idPedido}}"
+                                    id="btnradio2-{{ITEM.idPedido}}" autocomplete="off" checked *ngIf="ITEM.status==2">
+                                <input type="radio" class="btn-check" name="btn-{{ITEM.idPedido}}"
+                                    id="btnradio2-{{ITEM.idPedido}}" autocomplete="off" *ngIf="ITEM.status!=2"
+                                    (click)="alterarStatus(ITEM.idPedido,2)">
+                                <label class="btn btn-outline-primary" for="btnradio2-{{ITEM.idPedido}}"><i
+                                        class="bi bi-truck"></i></label>
+
+                                <input type="radio" class="btn-check" name="btn-{{ITEM.idPedido}}"
+                                    id="btnradio3-{{ITEM.idPedido}}" autocomplete="off" checked *ngIf="ITEM.status==3">
+                                <input type="radio" class="btn-check" name="btn-{{ITEM.idPedido}}"
+                                    id="btnradio3-{{ITEM.idPedido}}" autocomplete="off" *ngIf="ITEM.status!=3"
+                                    (click)="alterarStatus(ITEM.idPedido,3)">
+                                <label class="btn btn-outline-primary" for="btnradio3-{{ITEM.idPedido}}"><i
+                                        class="bi bi-x-circle-fill"></i></label>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
