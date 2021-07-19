@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { CompradorDTO } from 'src/app/model/CompradorDTO';
 import { Produto } from 'src/app/model/Produto';
+import { ClientesService } from 'src/app/services/clientes.service';
 import { ProdutoService } from 'src/app/services/produto.service';
 
 @Component({
@@ -9,9 +11,10 @@ import { ProdutoService } from 'src/app/services/produto.service';
 })
 export class ProdutosComponent implements OnInit {
 
-  public lista:Produto[] = []
+  public lista:Produto[] = [];
+  public compradores : CompradorDTO[] = []
 
-  constructor(private service:ProdutoService) { 
+  constructor(private service:ProdutoService,private clienteService:ClientesService) { 
     this.service.recuperarTodos().subscribe(
       (res:Produto[])=>{
         this.lista=res
@@ -47,4 +50,16 @@ export class ProdutosComponent implements OnInit {
     )
     console.log("Disponibiliza = " + produto.id + " disponibiliza = " + produto.disponivel)
   }
+
+  public buscarCompradores(id:number){
+    this.clienteService.buscarCompradores(id).subscribe(
+      (res:CompradorDTO[])=>{
+        this.compradores = res
+        document.getElementById("btnModal").click();
+      },
+      (err)=>{alert("erro ao recuperar a lista de compradores")}
+    )
+  }
+
+
 }

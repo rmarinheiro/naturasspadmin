@@ -1,5 +1,184 @@
-<div class="container">
-    <!-- Modal -->
+<div class="container-fluid overflow-hidden" *ngIf="mode == 1">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
+            <div
+                class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
+                <a href="/"
+                    class="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5">M<span class="d-none d-sm-inline">enu de Opções</span></span>
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
+                    id="menu">
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle px-sm-0 px-1" id="dropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-card-list"></i><span class="ms-1 d-none d-sm-inline">Categorias</span>
+                        </a>
+                       
+                    </li>
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle px-sm-0 px-1" id="dropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bag-x-fill"></i><span class="ms-1 d-none d-sm-inline">Produtos</span>
+                        </a>
+                       
+                    </li>
+                    <li>
+                        <a class="nav-link px-sm-0 px-2" (click)="navegarSideBar(6)">
+                            <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Clientes</span></a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link px-sm-0 px-2" (click)="navegarSideBar(5)">
+                            <i class="bi bi-truck"></i><span class="ms-1 d-none d-sm-inline">Pedidos</span></a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-sm-0 px-2">
+                            <i class="bi bi-clipboard-data"></i><span class="ms-1 d-none d-sm-inline">Relatórios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-sm-0 px-2">
+                            <i class="bi bi-key"></i><span class="ms-1 d-none d-sm-inline">Usuários</span> </a>
+                    </li>
+                    <li>
+                        <a href="#" class="nav-link px-sm-0 px-2">
+                            <i class="bi bi-x-square-fill"></i><span class="ms-1 d-none d-sm-inline">Sair</span> </a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
+
+
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex flex-column h-sm-100">
+            <main class="row overflow-auto">
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalResultado" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="modalResultado">Resultado da Operação</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{mensagemToast}}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    (click)="fecharModal()">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12 text-center">
+                        <h3 class="text-center">Editor de Produtos</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="formFile" class="form-label">Selecione a Foto do Produto:</label>
+                    <div class="input-group mb-3">
+
+                        <input class="form-control" type="file" id="formFile" (change)="selectFile($event)">
+                        <button type="button" class="btn btn-primary" (click)="uploadFoto()">Enviar</button>
+                    </div>
+                </div>
+                <div class="row" id="divFoto">
+                    <div class="col-12">
+                        <img *ngIf="produto.link; else foto " src="{{produto.link}}">
+                    </div>
+                    <ng-template #foto>
+                        <h4 class="text-center mt-2">Foto do Produto</h4>
+                    </ng-template>
+                </div>
+                <div class="row">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="txtNomeProduto">Nome Produto: </label>
+                                <input class="form-control" type="text" id="txtNome" [(ngModel)]="produto.nome">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="txtDetalhaMentoProduto">Detalhameto do Produto: </label>
+                                <input class="form-control" type="text" id="txtDetalhe" [(ngModel)]="produto.detalhe">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="txtCategoria">Categoria do Produto: </label>
+                                <select id="txtCategoria" class="form-control" [(ngModel)]="produto.categoria.id">
+                                    <option *ngFor="let  CATEG of listaCategoria" value={{CATEG.id}}>{{CATEG.nome}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="txtPreco">Preço do Produto: </label>
+                                <input class="form-control" type="text" id="txtPreco" [(ngModel)]="produto.preco">
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="chkDisponivel" class="form-label text-center">Disponivel: </label>
+                                <div class="form-control text-center">
+                                    <input type="checkbox" id="chkDisponivel" [(ngModel)]="disponivel">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="mb-3">
+                                <label for="chkDestaque" class="form-label text-center">Em Destaque: </label>
+                                <div class="form-control text-center">
+                                    <input type="checkbox" id="chkDestaque" [(ngModel)]="destaque">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" *ngIf="mode == 0">
+                            <div class="col-6">
+                                <button class="btn btn-primary" (click)="incluirNovoProduto()">Inserir Dados</button>
+                            </div>
+                            <div class="col-6">
+                                <a class="btn btn-primary" routerLink="/admin">Voltar</a>
+                            </div>
+                        </div>
+                        <div class="row" *ngIf="mode == 1">
+                            <div class="col-6">
+                                <button class="btn btn-primary" (click)="incluirNovoProduto()">Atualizar Dados</button>
+                            </div>
+                            <div class="col-6">
+                                <a class="btn btn-primary" routerLink="/admin">Voltar</a>
+                            </div>
+                        </div>
+                        <!--botao invisivel-->
+                        <button type="button" id="btnModal" class="btn btn-primary" data-bs-toggle="modal"
+                            data-bs-target="#modalResultado">
+                            Modal
+                        </button>
+                    </div>
+                </div>
+
+            </main>
+        </div>
+    </div>
+</div>
+
+<div class="container-fluid" *ngIf="mode == 0">
     <div class="modal fade" id="modalResultado" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -11,7 +190,8 @@
                     {{mensagemToast}}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" (click)="fecharModal()">Close</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="fecharModal()">Close</button>
                 </div>
             </div>
         </div>
@@ -38,7 +218,7 @@
             <h4 class="text-center mt-2">Foto do Produto</h4>
         </ng-template>
     </div>
-    <div class="row" >
+    <div class="row">
         <div class="row">
             <div class="col-12">
                 <div class="mb-3">
@@ -106,7 +286,8 @@
                 </div>
             </div>
             <!--botao invisivel-->
-            <button type="button" id="btnModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalResultado">
+            <button type="button" id="btnModal" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#modalResultado">
                 Modal
             </button>
         </div>

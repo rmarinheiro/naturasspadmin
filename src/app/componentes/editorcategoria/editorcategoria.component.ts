@@ -12,6 +12,7 @@ export class EditorcategoriaComponent implements OnInit {
 
   public categoria: Categoria;
   public mode: number; //modo 0 = post modo 1=put
+  public navegar : number;
 
   constructor(private activateRouter: ActivatedRoute, private service: CategoriaService, private router: Router) {
     this.categoria = new Categoria()
@@ -23,6 +24,7 @@ export class EditorcategoriaComponent implements OnInit {
       this.mode = 0;
     } else {
       this.mode = 1;
+      this.navegar = 7;
       this.service.getById(id).subscribe(
         (res: Categoria) => { this.categoria = res; },
         (err) => {

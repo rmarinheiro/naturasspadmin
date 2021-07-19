@@ -1,0 +1,66 @@
+
+<div class="container">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h3>Relatorio de Clientes</h3>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <th class="col">
+                <a [routerLink]="['/clientes']">TODOS</a>
+            </th>
+            <th class="col" *ngFor="let LETRA of listaLetras">
+                <a class="nav-link" [routerLink]="['/clientes']" [queryParams]="{letra:LETRA}">{{LETRA}}</a>
+            </th>
+        </thead>
+    </table>
+
+    <div class="row">
+        <div class="col-6">
+            <input type="text" id="txtKeyword" [(ngModel)]="keyword" class="form-control"
+                placeholder="Digite o nome para a busca">
+        </div>
+        <div class="col-4">
+            <button type="button" id="btnBusca" class="btn btn-primary" (click)="buscarPorPalavraChave()">Buscar Cliente</button>
+        </div>
+        <div class="col-2">
+            <button type="button" id="btnBusca" class="btn btn-primary" (click)="voltar()">Voltar</button>
+        </div>
+    </div>
+    <br>
+</div>
+<div class="container-fluid">
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th class="col">Nome</th>
+                <th class="col">Data Nascimento</th>
+                <th class="col">Endereço</th>
+                <th class="col">WhatsApp</th>
+                <th class="col">Email</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let CLI of lista">
+                <td><span *ngIf = "isBirthDay(CLI.dataNasc)"> <i class="bi bi-gift-fill fa-2x"> </i>   </span>{{CLI.nome}}</td>
+                <td>{{CLI.dataNasc | date:'dd/MM/yyyy'}} </td>
+
+                <td>{{CLI.logradouro}} - {{CLI.numero}} <br>
+                    {{CLI.complemento}} <br>
+                    {{CLI.cidade}} - {{CLI.bairro}} <br>
+                    {{CLI.cep}}
+
+                </td>
+                <td>{{CLI.telefone}}</td>
+                <td>{{CLI.email}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+</div>

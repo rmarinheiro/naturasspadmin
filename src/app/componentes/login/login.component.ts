@@ -4,6 +4,7 @@ import { JWTToken } from 'src/app/model/JWTToken';
 import { Usuario } from 'src/app/model/Usuario';
 import { LoginService } from 'src/app/services/login.service';
 
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -24,11 +25,15 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("LTRTk", res.token);
         this.router.navigate(["/admin"]);
       },
-      (err)=>{console.log("Deu ruim no login");}
+      (err:any)=>{
+        document.getElementById("btnModal").click();
+      }
     )
   }
 
   ngOnInit() {
   }
+  
 
+ 
 }

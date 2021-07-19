@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class SidebarComponent implements OnInit {
 
   public navegar : number
+  public mode : number;
   constructor(private route:Router) { }
 
   
@@ -35,6 +36,23 @@ export class SidebarComponent implements OnInit {
         this.navegar = 5;
         this.route.navigate['/editorproduto/new']
         
+      }
+      if(numero == 6){
+        this.navegar = 6;
+        
+      }
+      if(numero == 8){
+        this.navegar = 8;
+        
+      }
+
+      if(numero == 9){
+        this.navegar = 9;
+        this.mode == 0;
+        
+      }
+      if(numero == 10){
+        this.navegar = 10;
       }
       //console.log(numero);
       console.log(this.navegar);

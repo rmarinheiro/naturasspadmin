@@ -1,0 +1,219 @@
+<div class="container-fluid overflow-hidden" *ngIf="mode == 1">
+    <div class="row vh-100 overflow-auto">
+        <div class="col-12 col-sm-3 col-xl-2 px-sm-2 px-0 bg-dark d-flex sticky-top">
+            <div
+                class="d-flex flex-sm-column flex-row flex-grow-1 align-items-center align-items-sm-start px-3 pt-2 text-white">
+                <a href="/"
+                    class="d-flex align-items-center pb-sm-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <span class="fs-5">M<span class="d-none d-sm-inline">enu de Opções</span></span>
+                </a>
+                <ul class="nav nav-pills flex-sm-column flex-row flex-nowrap flex-shrink-1 flex-sm-grow-0 flex-grow-1 mb-sm-auto mb-0 justify-content-center align-items-center align-items-sm-start"
+                    id="menu">
+                    <li class="dropdown">
+                        <a class="nav-link dropdown-toggle px-sm-0 px-1" id="dropdown" data-bs-toggle="dropdown"
+                            aria-expanded="false">
+                            <i class="bi bi-card-list"></i><span class="ms-1 d-none d-sm-inline">Categorias</span>
+                        </a>
+
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="nav-link dropdown-toggle px-sm-0 px-1" id="dropdown"
+                            data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="bi bi-bag-x-fill"></i><span class="ms-1 d-none d-sm-inline">Produtos</span>
+                        </a>
+
+                    </li>
+                    <li>
+                        <a class="nav-link px-sm-0 px-2">
+                            <i class="fs-5 bi-people"></i><span class="ms-1 d-none d-sm-inline">Clientes</span></a>
+                    </li>
+
+                    <li>
+                        <a class="nav-link px-sm-0 px-2">
+                            <i class="bi bi-truck"></i><span class="ms-1 d-none d-sm-inline">Pedidos</span></a>
+                    </li>
+                    <li>
+                        <a class="nav-link px-sm-0 px-2">
+                            <i class="bi bi-clipboard-data"></i><span class="ms-1 d-none d-sm-inline">Relatórios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="nav-link px-sm-0 px-2">
+                            <i class="bi bi-key"></i><span class="ms-1 d-none d-sm-inline">Usuários</span> </a>
+                    </li>
+                    <li>
+                        <a class="nav-link px-sm-0 px-2">
+                            <i class="bi bi-x-square-fill"></i><span class="ms-1 d-none d-sm-inline">Sair</span> </a>
+                    </li>
+                </ul>
+                <div class="dropdown py-sm-4 mt-sm-auto ms-auto ms-sm-0 flex-shrink-1">
+
+                </div>
+            </div>
+        </div>
+        <div class="col d-flex flex-column h-sm-100">
+            <main class="row overflow-auto">
+                <!-- Button trigger modal -->
+                <button id="btnModal" style="visibility:hidden;" type="button" class="btn btn-primary"
+                    data-bs-toggle="modal" data-bs-target="#exampleModal">
+                    ....
+                </button>
+
+                <!-- Modal -->
+                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Resultado!</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                {{msgResultado}}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                                    (click)="voltarouFicar()">Fechar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+
+                <div class="mb-3">
+                    <label for="txtNome" class="form-label">Nome Completo</label>
+                    <input type="text" class="form-control" id="txtNome" [(ngModel)]="usuario.nome" maxlength="50">
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtEmail" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="txtEmail" [(ngModel)]="usuario.email" maxlength="50"
+                        (keyup)="sugereUsername()">
+
+                </div>
+
+                <div class="mb-3">
+                    <label for="txtUsername" class="form-label">Username</label>
+                    <input type="text" class="form-control" id="txtUsername" [(ngModel)]="usuario.username"
+                        maxlength="50">
+
+                </div>
+
+                <div class="row">
+                    <div class="col-12 sm-12 col-xs-12 col-md-6 col-lg-6 col-xl-6">
+                        <div class="mb-3">
+                            <label for="txtSenha" class="form-label">Senha</label>
+                            <input type="password" class="form-control" id="txtSenha" [(ngModel)]="usuario.senha">
+
+                            <div class="mb-3">
+                                <label for="txtReSenha" class="form-label">Confirme a Senha</label>
+                                <input type="password" class="form-control" id="txtReSenha" maxlength="50"
+                                    (keyup)="confereSenha()" [(ngModel)]="senha">
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-12 text-center">
+                            <h4 *ngIf="!senhasiguais; conferem" style="color:red">Senhas Não Conferem</h4>
+                            <ng-template #conferem>
+                                Agora Sim!
+                            </ng-template>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <button class=" btn btn-primary" (click)="atualizarUsuario()">Atualizar Dados</button>
+                        </div>
+                        <div class="col-6">
+                            <button class=" btn btn-primary" (click)="voltarOuFicar()">Voltar</button>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+<div class=" container" *ngIf="mode == 0">
+    <button id="btnModal" style="visibility:hidden;" type="button" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#exampleModal">
+        ....
+    </button>
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Resultado!</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    {{msgResultado}}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal"
+                        (click)="voltarouFicar()">Fechar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="mb-3">
+        <label for="txtNome" class="form-label">Nome Completo</label>
+        <input type="text" class="form-control" id="txtNome" [(ngModel)]="usuario.nome" maxlength="50">
+
+    </div>
+
+    <div class="mb-3">
+        <label for="txtEmail" class="form-label">Email</label>
+        <input type="email" class="form-control" id="txtEmail" [(ngModel)]="usuario.email" maxlength="50"
+            (keyup)="sugereUsername()">
+
+    </div>
+
+    <div class="mb-3">
+        <label for="txtUsername" class="form-label">Username</label>
+        <input type="text" class="form-control" id="txtUsername" [(ngModel)]="usuario.username" maxlength="50">
+
+    </div>
+
+    <div class="row">
+        <div class="col-12 sm-12 col-xs-12 col-md-6 col-lg-6 col-xl-6">
+            <div class="mb-3">
+                <label for="txtSenha" class="form-label">Senha</label>
+                <input type="password" class="form-control" id="txtSenha" [(ngModel)]="usuario.senha">
+
+                <div class="mb-3">
+                    <label for="txtReSenha" class="form-label">Confirme a Senha</label>
+                    <input type="password" class="form-control" id="txtReSenha" maxlength="50" (keyup)="confereSenha()"
+                        [(ngModel)]="senha">
+
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 text-center">
+                <h4 *ngIf="!senhasiguais; conferem" style="color:red">Senhas Não Conferem</h4>
+                <ng-template #conferem>
+                    Agora Sim!
+                </ng-template>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button class=" btn btn-primary" (click)="atualizarUsuario()">Atualizar Dados</button>
+            </div>
+            <div class="col-6">
+                <button class=" btn btn-primary" (click)="voltarOuFicar()">Voltar</button>
+            </div>
+        </div>
+    </div>
+</div>

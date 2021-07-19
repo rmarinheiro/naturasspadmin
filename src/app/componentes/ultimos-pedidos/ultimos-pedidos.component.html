@@ -1,0 +1,25 @@
+<div id="pedidosgeral">
+    <h4>Ultimos Pedidos {{total | currency:'BRL'}}</h4>
+        <table class=" table table-hover">
+            <thead>
+                <tr>
+                    <!--<th scope="col">ID</th>-->
+                    <th scope="col">#</th>
+                    <th scope="col">Cliente</th>
+                    <th scope="col">Data</th>
+                    <th scope="col">Total - R$</th>
+
+
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let ITEM of lista">
+                    <td class="col">{{ITEM.idPedido}}</td>
+                    <td class="col">{{ITEM.cliente.nome}}</td>
+                    <td class="col">{{ITEM.dataPedido | date:'dd/MM/yyyy'}}</td>
+                    <td class="col">{{ITEM.valorTotal | currency:'BRL'}}</td>
+                   
+                </tr>
+            </tbody>
+        </table>
+</div>
