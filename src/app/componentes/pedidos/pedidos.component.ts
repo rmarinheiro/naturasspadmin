@@ -29,6 +29,7 @@ export class PedidosComponent implements OnInit {
         this.lista = res;
         this.total = 0;
         this.lista.forEach(item =>{this.total += item.valorTotal;})
+        
       
       },
       (err)=> {

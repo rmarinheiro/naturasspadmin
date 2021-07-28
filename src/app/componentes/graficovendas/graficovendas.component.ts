@@ -4,6 +4,7 @@ import * as moment from 'moment';
 import { VendasPorDataDTO } from 'src/app/model/VendasPorDataTO';
 import { PedidoService } from 'src/app/services/pedido.service';
 
+
 @Component({
   selector: 'app-graficovendas',
   templateUrl: './graficovendas.component.html',
@@ -28,7 +29,7 @@ export class GraficovendasComponent implements OnInit {
 
    public recuperarGrafico(){
     let dataFim:string = moment().format("yyyy-MM-DD")
-    let dataIni:string = moment().subtract(7,'days').format("yyyy-MM-DD");
+    let dataIni:string = moment().subtract(20,'days').format("yyyy-MM-DD");
    
 
     this.service.recuperaTotaisDaSemana(dataIni,dataFim).subscribe(
